@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+.SignupBox {
+  background: lightgreen;
+  padding: 0.5em;
+}
+
+.LoginBox {
+  background: lightblue;
+  padding: 0.5em;
+}
+
+.LogoutBox {
+  background: lightred;
+  padding: 0.5em;
+}
