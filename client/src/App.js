@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link, Switch
 } from 'react-router-dom';
 import './App.css';
 import Signup from './Signup';
+import Main from './Main';
+import Navbar from './Navbar';
 import Login from './Login';
 import Logout from './Logout';
 import UserProfile from './UserProfile';
+import NotFound from './NotFound';
 import axios from 'axios';
+
 
 class App extends Component {
   constructor(props) {
@@ -18,21 +22,18 @@ class App extends Component {
       token: '',
       user: {}
     }
-    this.liftTokenToState = this.liftTokenToState.bind(this)
-    this.logout = this.logout.bind(this)
-    this.componentDidMount = this.componentDidMount.bind(this)
   }
 
-  liftTokenToState(data) {
+  liftTokenToState = (data) => {
     this.setState({token: data.token, user: data.user})
   }
 
-  logout() {
+  logout = ()=> {
     localStorage.removeItem('mernToken')
     this.setState({token: '', user: {}})
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     // If there is a token in localStorage
     var token = localStorage.getItem('mernToken')
     if (token === 'undefined' || token === null || token === '' || token === undefined) {
@@ -64,23 +65,31 @@ class App extends Component {
     var theUser = this.state.user
     if (typeof this.state.user === 'object' && Object.keys(this.state.user).length !== 0) {
       return (
-        <div className='App'>
-          <UserProfile user={this.state.user} logout={this.logout} />
-        </div>
+        <div>
+        <Router>
+          <div>
+            <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
+            <Switch>
+              <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+              <Route path="*" render={NotFound} status={404} />
+            </Switch>
+          </div>
+        </Router>
+      </div>
       );
     } else {
       return (
-        <div className='App'>
-
-          <div className='SignupBox'>
-            <Signup lift={this.liftTokenToState} />
+        <div>
+        <Router>
+          <div>
+            <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
+            <Switch>
+              <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+              <Route path="*" render={NotFound} status={404} />
+            </Switch>
           </div>
-
-          <div className='LoginBox'>
-            <Login lift={this.liftTokenToState} />
-          </div>
-
-        </div>
+        </Router>
+      </div>
       );
     }
   }
