@@ -11,9 +11,16 @@ class Main extends Component {
 
 render() {
   return (
-    <div className="main">
-      <ImageUpload />
-    </div>
+    <Flex
+      align='center'
+	    wrap
+	    w={1}
+	   >
+
+        <Box m='auto' w={205} align='center'>
+          <ImageUpload />
+        </Box>
+    </Flex>
   )
 }
 }

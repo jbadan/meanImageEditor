@@ -10,10 +10,15 @@ const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dyp2hzqpp/upload'
 
 
 const style = {
-  height: 205,
-  width: 205,
-  textAlign: 'center',
-  display: 'inline-block',
+  paperStyle: {
+    height: 204,
+    width: 204,
+    textAlign: 'center',
+    display: 'inline-block',
+  },
+  textStyle:{
+    marginTop: '40%'
+  }
 };
 
 
@@ -56,12 +61,12 @@ handleImageUpload(file) {
 render() {
   return (
       <form>
-        <Paper style={style} zDepth={4}>
+        <Paper style={style.paperStyle} zDepth={4}>
           <Dropzone
             onDrop={this.onImageDrop.bind(this)}
             multiple={false}
             accept="image/*">
-            <div>Drop an image or click to select a file to upload.</div>
+            <div style={style.textStyle}>Drop an image or click to select a file to upload</div>
           </Dropzone>
         </Paper>
       </form>
