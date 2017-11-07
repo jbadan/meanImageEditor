@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { AppBar, IconMenu, MenuItem, IconButton } from 'material-ui';
 
 import {
-  BrowserRouter as Link
+  BrowserRouter as Router,
+  Redirect, Link
 } from 'react-router-dom';
 import Signup from './Auth/Signup';
 import Login from './Auth/Login';
@@ -25,7 +26,6 @@ const Logged = (props) => {
           <IconButton>
           <Avatar
             size={40}
-
           >
           {letter}
           </Avatar>
@@ -70,7 +70,6 @@ class Navbar extends Component {
         <AppBar
           title={<FlatButton
                 containerElement={<Link to="/" />}
-                linkButton={true}
                 label={"Image Editor"}
                 labelStyle={{ fontSize: '1em'}}
                 />}

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router,Route, Switch} from 'react-router-dom';
+import {
+BrowserRouter,
+Route,
+Link,
+Switch
+} from 'react-router-dom'
 import './App.css';
 import Main from './Main/Main';
 import Navbar from './Navbar';
@@ -57,16 +62,16 @@ class App extends Component {
   render() {
       return (
         <div>
-        <Router>
+        <BrowserRouter>
           <div>
-            <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
+          <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
             <Switch>
               <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
               <Route path="/profile" render={() => <Profile user={this.state.user}/>}/>
-              <Route path="*" render={NotFound} status={404} />
+              // <Route path="*" render={NotFound} status={404} />
             </Switch>
           </div>
-        </Router>
+        </BrowserRouter>
       </div>
       );
     }
