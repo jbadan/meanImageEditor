@@ -6,7 +6,6 @@ import Main from './Main';
 import Navbar from './Navbar';
 import Login from './Login';
 import Logout from './Logout';
-import UserProfile from './UserProfile';
 import NotFound from './NotFound';
 import axios from 'axios';
 
@@ -58,8 +57,6 @@ class App extends Component {
   }
 
   render() {
-    var theUser = this.state.user
-    if (typeof this.state.user === 'object' && Object.keys(this.state.user).length !== 0) {
       return (
         <div>
         <Router>
@@ -73,22 +70,7 @@ class App extends Component {
         </Router>
       </div>
       );
-    } else {
-      return (
-        <div>
-        <Router>
-          <div>
-            <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
-            <Switch>
-              <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
-              <Route path="*" render={NotFound} status={404} />
-            </Switch>
-          </div>
-        </Router>
-      </div>
-      );
-    }
-  }
+    } 
 }
 
 export default App;

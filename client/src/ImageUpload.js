@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import axios from 'axios';
 
 //material-ui
 import Paper from 'material-ui/Paper';
@@ -53,9 +54,22 @@ handleImageUpload(file) {
     if (response.body.secure_url !== '') {
       this.setState({
         uploadedFileCloudinaryUrl: response.body.secure_url
+      }, function(){
+        this.postUrl();
       });
     }
   });
+}
+
+postUrl(){
+  if(this.state.uploadedFileCloudinaryUrl !== ''){
+    axios.post('/image/new', {
+      user: this.props.user,
+      src: this.state.uploadedFileCloudinaryUrl
+    }).then(result => {
+      //do nothing
+    })
+  }
 }
 
 render() {

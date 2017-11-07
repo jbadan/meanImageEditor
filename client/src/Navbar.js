@@ -62,6 +62,12 @@ class Navbar extends Component {
   }
 
 
+  handleLogout = (e) => {
+    e.preventDefault()
+    localStorage.removeItem('mernToken')
+    this.props.logout()
+  }
+
   render() {
 
     return (
@@ -73,9 +79,8 @@ class Navbar extends Component {
                 label={"Image Editor"}
                 labelStyle={{ fontSize: '1em'}}
                 />}
-          //titleStyle={{textAlign: 'center'}}
           showMenuIconButton={false}
-          iconElementRight={this.state.user.id ? <Logged user={this.state.user} signOut={this.props.logout}/> : (
+          iconElementRight={this.state.user.id ? <Logged user={this.state.user} logout={this.handleLogout}/> : (
             <div className='nav-buttons'>
               <div className='nav-button'>
                 <Signup lift={this.props.lift} primary={false}/>
