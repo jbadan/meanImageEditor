@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
+
 var userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -21,9 +22,7 @@ var userSchema = new mongoose.Schema({
     minlength: 8,
     maxlength: 99
   },
-  imageUrl: {
-    type: String
-  }
+  images: [String]
 });
 
 // Override 'toJSON' to prevent the password from being returned with the user

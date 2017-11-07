@@ -6,7 +6,7 @@ var User = require('../models/user');
 
 router.post('/new', function(req,res,next){
   User.findOneAndUpdate(
-    { "_id": req.body.user.id},{$set:{imageUrl:req.body.src}},{new:true},
+    { "_id": req.body.user.id},{$push:{images:req.body.src}},{new:true},
     function(err,user) {
         if(err){
           console.log(err)
