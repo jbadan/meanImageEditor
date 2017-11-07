@@ -15,5 +15,12 @@ router.post('/new', function(req,res,next){
     });
 });
 
+router.post('/grid', function(req,res,next){
+  User.findOne({ "_id": req.body.user.id}).
+  exec(function (err, user) {
+    if (err) console.log(err);
+    res.send({images: user.images});
+  });
+})
 
 module.exports = router;

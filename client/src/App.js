@@ -10,6 +10,7 @@ import Main from './Main/Main';
 import Navbar from './Navbar';
 import NotFound from './NotFound';
 import Profile from './Profile/Profile';
+import Edit from './Main/Edit';
 import axios from 'axios';
 
 
@@ -68,7 +69,8 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
               <Route path="/profile" render={() => <Profile user={this.state.user}/>}/>
-              // <Route path="*" render={NotFound} status={404} />
+              <Route path="/edit" render={() => <Edit user={this.state.user}/>}/>
+              <Route path="*" render={NotFound} status={404} />
             </Switch>
           </div>
         </BrowserRouter>
