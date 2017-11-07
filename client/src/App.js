@@ -19,7 +19,8 @@ class App extends Component {
     super(props)
     this.state = {
       token: '',
-      user: {}
+      user: {},
+      src: ''
     }
   }
 
@@ -30,6 +31,13 @@ class App extends Component {
   logout = ()=> {
     localStorage.removeItem('mernToken')
     this.setState({token: '', user: {}})
+  }
+  liftUrl = (data) => {
+    console.log("this is the lifturl data")
+    console.log(data)
+    this.setState({
+      src: data
+    })
   }
 
   componentDidMount = () => {
@@ -67,9 +75,9 @@ class App extends Component {
           <div>
           <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
             <Switch>
-              <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+              <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState} liftUrl={this.liftUrl}/>} />
               <Route path="/profile" render={() => <Profile user={this.state.user}/>}/>
-              <Route path="/edit" render={() => <Edit user={this.state.user}/>}/>
+              <Route path="/edit" render={() => <Edit user={this.state.user} src={this.state.src}/>}/>
               <Route path="*" render={NotFound} status={404} />
             </Switch>
           </div>

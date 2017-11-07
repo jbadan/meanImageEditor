@@ -12,6 +12,7 @@ router.post('/new', function(req,res,next){
           console.log(err)
         }
         user.save();
+        res.send(user);
     });
 });
 

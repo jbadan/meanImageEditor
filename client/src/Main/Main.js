@@ -18,7 +18,7 @@ render() {
 	   >
 
         <Box m='auto' w={205} align='center'>
-          <ImageUpload user={this.props.user}/>
+          <ImageUpload user={this.props.user} liftUrl={this.props.liftUrl}/>
         </Box>
     </Flex>
   )

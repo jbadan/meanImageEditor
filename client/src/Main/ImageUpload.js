@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
+import { Redirect } from 'react-router'
 
 //material-ui
 import Paper from 'material-ui/Paper';
@@ -29,7 +30,8 @@ class ImageUpload extends Component {
 
   this.state = {
     uploadedFile: null,
-    uploadedFileCloudinaryUrl: ''
+    uploadedFileCloudinaryUrl: '',
+    redirect: false
   };
 }
 
@@ -56,6 +58,7 @@ handleImageUpload(file) {
         uploadedFileCloudinaryUrl: response.body.secure_url
       }, function(){
         this.postUrl();
+        this.props.liftUrl(response.body.secure_url)
       });
     }
   });
@@ -67,12 +70,21 @@ postUrl(){
       user: this.props.user,
       src: this.state.uploadedFileCloudinaryUrl
     }).then(result => {
-      //do nothing
+      this.setState({
+        redirect: true
+      })
     })
   }
 }
 
 render() {
+  const { redirect } = this.state;
+     if (redirect) {
+      return <Redirect to={{
+            pathname: '/edit',
+            state: { src: this.state.uploadedFileCloudinaryUrl}
+          }} />;
+     }
   return (
       <form>
         <Paper style={style.paperStyle} zDepth={4}>

@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 
 
 class Edit extends Component {
-
-
+  constructor(props){
+    super(props);
+    this.state = {
+      src: this.props.src
+    }
+  }
 render() {
   return (
-    <h1> This is where we will edit the uploaded photo</h1>
+    <div>
+      <img src={this.state.src} />
+    </div>
   )
 }
 }
