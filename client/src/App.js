@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import Login from './Login';
 import Logout from './Logout';
 import NotFound from './NotFound';
+import Profile from './Profile';
 import axios from 'axios';
 
 
@@ -64,13 +65,14 @@ class App extends Component {
             <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
             <Switch>
               <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+              <Route path="/profile" render={() => <Profile user={this.state.user}/>}/>
               <Route path="*" render={NotFound} status={404} />
             </Switch>
           </div>
         </Router>
       </div>
       );
-    } 
+    }
 }
 
 export default App;
