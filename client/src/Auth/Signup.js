@@ -1,96 +1,109 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './App.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
-import CircularProgress from 'material-ui/CircularProgress';
-import { Row, Col, Grid } from 'react-flexbox-grid';
+import { Row } from 'react-flexbox-grid';
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      name: '',
       email: '',
       password: '',
       open: false,
-      loading: false,
       alert: {type: '', msg: ''},
       showAlert: false,
     }
   }
 
+  handleNameChange = (e) => {
+    this.setState({name: e.target.value})
+  }
   handleEmailChange = (e) => {
     this.setState({email: e.target.value})
   }
-
-  handlePasswordChange= (e) => {
+  handlePasswordChange = (e) => {
     this.setState({password: e.target.value})
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({loading: true});
-    axios.post('/auth/login', {
+    axios.post('/auth/signup', {
+      name: this.state.name,
       email: this.state.email,
       password: this.state.password
-    }).then((result) => {
+    }).then(result => {
+      console.log(result)
       localStorage.setItem('mernToken', result.data.token);
       this.props.lift(result.data);
       this.handleClose();
-    }).catch((error) => {
+    }).catch(error => {
+      console.log(error)
       this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
-    });
+    })
   }
 
   clearAlert = () => {
-    this.setState({showAlert: false,});
-  }
-
-  handleClose = () => {
-    this.setState({
-      open: false,
-      email: '',
-      password: ''
-    });
+    this.setState({showAlert: false});
   }
 
   handleOpen = () => {
     this.setState({open: true});
   };
 
+  handleClose = () => {
+    this.setState({
+      open: false,
+      name: '',
+      email: '',
+      password: '',
+    });
+  };
+
   render() {
+
     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
-        style={{margin: '.25em'}}
         onClick={this.handleClose}
+        style={{margin: '.25em'}}
       />,
       <RaisedButton
-        label="Login"
+        label="Submit"
         primary={true}
-        style={{margin: '.25em'}}
+        keyboardFocused={false}
         onClick={this.handleSubmit}
+        style={{margin: '.25em'}}
       />,
     ];
-
     return (
       <div>
-        <RaisedButton label="Login" onClick={this.handleOpen} />
+        <RaisedButton label="Signup" onClick={this.handleOpen} primary={this.props.primary}/>
         <Dialog
-          title="Login"
+          title="Signup"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
           <div className='modal-content' >
+
+            <Row>
+              <TextField
+                   hintText="Name"
+                   floatingLabelText="What is your first name?"
+                   value={this.state.name}
+                   onChange={this.handleNameChange}
+              />
+            </Row>
             <Row>
               <TextField
                    hintText="Email"
-                   floatingLabelText="Enter your email"
+                   floatingLabelText="What is your email?"
                    value={this.state.email}
                    onChange={this.handleEmailChange}
               />
@@ -98,7 +111,7 @@ class Login extends Component {
             <Row>
               <TextField
                    hintText="Password"
-                   floatingLabelText="Enter your password"
+                   floatingLabelText="Choose a password"
                    type="password"
                    value={this.state.password}
                    onChange={this.handlePasswordChange}
@@ -111,4 +124,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;

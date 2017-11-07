@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-import { AppBar, Drawer, IconMenu, MenuItem, RaisedButton, IconButton, Toggle } from 'material-ui';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { AppBar, IconMenu, MenuItem, IconButton } from 'material-ui';
+
 import {
-  BrowserRouter as Router,
-  Redirect, Link
+  BrowserRouter as Link
 } from 'react-router-dom';
-import Signup from './Signup';
-import Login from './Login';
+import Signup from './Auth/Signup';
+import Login from './Auth/Login';
 
 import {FlatButton } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 
 
-const buttonStyle= {
-  verticalAlign: 'middle'
-}
 
 const Logged = (props) => {
   let userName = props.user.name;
   let letter = userName.toUpperCase().charAt(0);
-  const style = {margin: 5};
   return (
     <div style={{color: 'black'}}>
 

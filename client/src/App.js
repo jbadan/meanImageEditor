@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router,Route, Link, Switch} from 'react-router-dom';
+import {BrowserRouter as Router,Route, Switch} from 'react-router-dom';
 import './App.css';
-import Signup from './Signup';
-import Main from './Main';
+import Main from './Main/Main';
 import Navbar from './Navbar';
-import Login from './Login';
-import Logout from './Logout';
 import NotFound from './NotFound';
-import Profile from './Profile';
+import Profile from './Profile/Profile';
 import axios from 'axios';
 
 
