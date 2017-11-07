@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link, Switch
-} from 'react-router-dom';
+import {BrowserRouter as Router,Route, Link, Switch} from 'react-router-dom';
 import './App.css';
 import Signup from './Signup';
 import Main from './Main';
