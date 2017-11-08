@@ -10,8 +10,8 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: '50vw',
-    height: '50vh',
+    width: '80vw',
+    height: '80vh',
     overflowY: 'auto',
   },
 };

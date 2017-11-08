@@ -11,7 +11,14 @@ const paper = {
     margin: 20,
     textAlign: 'center',
     display: 'inline-block',
+    padding: '20px'
   }
+
+  const imgStyle = {
+      margin: 20,
+      textAlign: 'center',
+      display: 'inline-block',
+    }
 
 class Edit extends Component {
   constructor(props){
@@ -24,7 +31,8 @@ class Edit extends Component {
       invValue: 0,
       sepiaValue: 0,
       conValue: 1,
-      blurValue: 0
+      blurValue: 0,
+      hueValue: 0
     }
   }
 
@@ -63,6 +71,11 @@ changeBlur(event, value) {
    blurValue:value
  })
 }
+changeHue(event, value) {
+ this.setState({
+   hueValue:value
+ })
+}
 render() {
   let bright = this.state.brightnessValue;
   let gray = this.state.grayValue;
@@ -71,12 +84,13 @@ render() {
   let sepia = this.state.sepiaValue;
   let con = this.state.conValue;
   let blur = this.state.blurValue;
+  let hue = this.state.hueValue;
   const style = {
     image:{
       height: 400,
       width: 500,
-      WebKitFilter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px)`,
-      filter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px)`
+      WebKitFilter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`,
+      filter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`
     }
   };
   let imageLink;
@@ -89,9 +103,9 @@ render() {
     <Grid fluid>
     <Row>
       <Col xs>
-      <Paper style={paper} zDepth={3}>
+      <div style={imgStyle}>
         {imageLink}
-      </Paper>
+      </div>
       </Col>
       <Col xs>
         <Paper style={paper} zDepth={3}>
@@ -156,6 +170,14 @@ render() {
             <Slider
               onChange={(event, value) => this.changeBlur(event, value)}
               max={100}
+              min={0}
+              defaultValue={0}
+            />
+            <h5> Hue Rotate</h5>
+            <p> {hue}&#176; </p>
+            <Slider
+              onChange={(event, value) => this.changeHue(event, value)}
+              max={360}
               min={0}
               defaultValue={0}
             />

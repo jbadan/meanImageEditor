@@ -23,6 +23,7 @@
     "react-flexbox-grid": "^2.0.0",
     "react-router-dom": "^4.2.2",
     "react-swipeable-views": "^0.12.10",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "unsplash-api": "^1.2.0"
   }
 }
