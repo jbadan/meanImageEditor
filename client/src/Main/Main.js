@@ -5,6 +5,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import FontIcon from 'material-ui/FontIcon';
 import Edit from './Edit.js';
+import Profile from '../Profile/Profile.js';
 
 const styles = {
   headline: {
@@ -32,6 +33,12 @@ class Main extends Component {
       });
     };
 
+    changeIndex = (data) => {
+      this.setState({
+        slideIndex: data
+      });
+    };
+
 
 render() {
   return (
@@ -51,12 +58,13 @@ render() {
           <div>
             <Flex align='center' wrap w={1}>
                 <Box m='auto' w={205} align='center'>
-                  <ImageUpload user={this.props.user} liftUrl={this.props.liftUrl}/>
+                  <ImageUpload user={this.props.user} liftUrl={this.props.liftUrl} changeIndex={this.changeIndex}/>
+                   <Profile user={this.props.user}/>
                 </Box>
             </Flex>
           </div>
           <div style={styles.slide}>
-            <Edit user={this.state.user} src={this.state.src}/>
+            <Edit user={this.state.user} src={this.props.src}/>
           </div>
           <div style={styles.slide}>
             slide n°3

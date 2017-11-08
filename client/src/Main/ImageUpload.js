@@ -30,8 +30,7 @@ class ImageUpload extends Component {
 
   this.state = {
     uploadedFile: null,
-    uploadedFileCloudinaryUrl: '',
-    redirect: false
+    uploadedFileCloudinaryUrl: ''
   };
 }
 
@@ -70,21 +69,12 @@ postUrl(){
       user: this.props.user,
       src: this.state.uploadedFileCloudinaryUrl
     }).then(result => {
-      this.setState({
-        redirect: true
-      })
+      this.props.changeIndex(1)
     })
   }
 }
 
 render() {
-  const { redirect } = this.state;
-     if (redirect) {
-      return <Redirect to={{
-            pathname: '/edit',
-            state: { src: this.state.uploadedFileCloudinaryUrl}
-          }} />;
-     }
   return (
       <form>
         <Paper style={style.paperStyle} zDepth={4}>

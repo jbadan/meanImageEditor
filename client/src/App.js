@@ -80,7 +80,11 @@ class App extends Component {
     } else {
        switchStatement =
         <Switch>
-          <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+          <Route exact path="/" render={() => <Main user={this.state.user}
+                                                    lift={this.liftTokenToState}
+                                                    src={this.state.src}
+                                                    liftUrl={this.liftUrl}
+                                              />} />
           <Route path="*" render={NotFound} status={404} />
         </Switch>
     }
