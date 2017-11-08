@@ -11,6 +11,7 @@
     "react-flexbox-grid": "^1.1.5",
     "react-scripts": "1.0.14",
     "reflexbox": "^3.0.0-0",
+    "style-it": "^1.6.13",
     "superagent": "^3.8.0",
     "webpack": "^3.8.1"
   },
