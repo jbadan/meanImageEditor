@@ -10,6 +10,7 @@ import Main from './Main/Main';
 import Navbar from './Navbar';
 import NotFound from './NotFound';
 import Profile from './Profile/Profile';
+import NotLoggedInHome from './NotLoggedInHome';
 import Edit from './Main/Edit';
 import axios from 'axios';
 
@@ -69,17 +70,26 @@ class App extends Component {
   }
 
   render() {
+    let switchStatement = '';
+    if (Object.keys(this.state.user).length === 0) {
+       switchStatement =
+        <Switch>
+          <Route exact path="/" render={() => <NotLoggedInHome />} />
+          <Route path="*" render={NotFound} status={404} />
+        </Switch>
+    } else {
+       switchStatement =
+        <Switch>
+          <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+          <Route path="*" render={NotFound} status={404} />
+        </Switch>
+    }
       return (
         <div>
         <BrowserRouter>
           <div>
           <Navbar user={this.state.user} lift={this.liftTokenToState} logout={this.logout} />
-            <Switch>
-              <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState} liftUrl={this.liftUrl}/>} />
-              <Route path="/profile" render={() => <Profile user={this.state.user}/>}/>
-              <Route path="/edit" render={() => <Edit user={this.state.user} src={this.state.src}/>}/>
-              <Route path="*" render={NotFound} status={404} />
-            </Switch>
+            {switchStatement}
           </div>
         </BrowserRouter>
       </div>

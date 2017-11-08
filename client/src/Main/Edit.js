@@ -20,7 +20,10 @@ class Edit extends Component {
       brightnessValue: 1,
       grayValue: 0,
       satValue: 1,
-      invValue: 0
+      invValue: 0,
+      sepiaValue: 0,
+      conValue: 1,
+      blurValue: 0
     }
   }
 
@@ -44,17 +47,35 @@ changeInv(event, value) {
    invValue:value
  })
 }
+changeSepia(event, value) {
+ this.setState({
+   sepiaValue:value
+ })
+}
+changeCon(event, value) {
+ this.setState({
+   conValue:value
+ })
+}
+changeBlur(event, value) {
+ this.setState({
+   blurValue:value
+ })
+}
 render() {
   let bright = this.state.brightnessValue;
   let gray = this.state.grayValue;
   let sat = this.state.satValue;
   let inv = this.state.invValue;
+  let sepia = this.state.sepiaValue;
+  let con = this.state.conValue;
+  let blur = this.state.blurValue;
   const style = {
     image:{
       height: 400,
       width: 500,
-      WebKitFilter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv})`,
-      filter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv})`
+      WebKitFilter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px)`,
+      filter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px)`
     }
   };
   let imageLink;
@@ -95,12 +116,38 @@ render() {
           min={0}
           defaultValue={1}
         />
+        <h4> Contrast </h4>
+        <p> {con *100}% </p>
+        <Slider
+          onChange={(event, value) => this.changeCon(event, value)}
+          max={4}
+          min={0}
+          defaultValue={1}
+        />
 
         <h4> Inversion </h4>
         <p> {inv *100}% </p>
         <Slider
           onChange={(event, value) => this.changeInv(event, value)}
           max={1}
+          min={0}
+          defaultValue={0}
+        />
+
+        <h4> Sepia </h4>
+        <p> {sepia *100}% </p>
+        <Slider
+          onChange={(event, value) => this.changeSepia(event, value)}
+          max={1}
+          min={0}
+          defaultValue={0}
+        />
+
+        <h4> Blur </h4>
+        <p> {blur}px </p>
+        <Slider
+          onChange={(event, value) => this.changeBlur(event, value)}
+          max={100}
           min={0}
           defaultValue={0}
         />
