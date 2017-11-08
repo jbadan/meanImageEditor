@@ -5,7 +5,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <h1> Profile page </h1>
+        <h1>  </h1>
         <GridImages user={this.props.user} />
       </div>
     );

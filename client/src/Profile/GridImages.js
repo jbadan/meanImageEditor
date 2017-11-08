@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 const styles = {
   root: {
@@ -11,8 +10,8 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 500,
-    height: 450,
+    width: '50vw',
+    height: '50vh',
     overflowY: 'auto',
   },
 };
@@ -39,13 +38,13 @@ class GridImages extends Component {
     return (
       <div style={styles.root}>
         <GridList
-          cellHeight={180}
+          cellHeight={200}
           style={styles.gridList}
           >
         {this.state.tilesData.map((tile, index) => (
           <GridTile
             key={index}
-            actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+            actionIcon={<IconButton><i class="fa fa-heart-o" aria-hidden="true"></i></IconButton>}
           >
             <img src={tile} />
           </GridTile>

@@ -56,10 +56,19 @@ render() {
           onChangeIndex={this.handleChange}
           >
           <div>
+          <Flex align='center' wrap w={1}>
+              <Box m='auto' align='center'>
+                <h1> </h1>
+              </Box>
+          </Flex>
             <Flex align='center' wrap w={1}>
                 <Box m='auto' w={205} align='center'>
                   <ImageUpload user={this.props.user} liftUrl={this.props.liftUrl} changeIndex={this.changeIndex}/>
-                   <Profile user={this.props.user}/>
+                </Box>
+            </Flex>
+            <Flex align='center' wrap w={1}>
+                <Box auto>
+                  <Profile user={this.props.user}/>
                 </Box>
             </Flex>
           </div>
