@@ -3,9 +3,10 @@ import placeholder from './placeholder.jpg';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
 import Style from 'style-it';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 const paper = {
-    height: 400,
+    height: '80vh',
     width: 500,
     margin: 20,
     textAlign: 'center',
@@ -85,74 +86,85 @@ render() {
     imageLink = <img style={style.image} src={this.props.src} />
   }
   return (
-    <div>
+    <Grid fluid>
+    <Row>
+      <Col xs>
       <Paper style={paper} zDepth={3}>
         {imageLink}
       </Paper>
-      <Paper style={paper} zDepth={3}>
-        <h4> Brightness </h4>
-        <p> {bright *100}% </p>
-        <Slider
-          onChange={(event, value) => this.changeBrightness(event, value)}
-          max={2}
-          min={0}
-          defaultValue={1}
-        />
+      </Col>
+      <Col xs>
+        <Paper style={paper} zDepth={3}>
+        <Row>
+          <Col xs>
+            <h5> Brightness </h5>
+            <p> {bright *100}% </p>
+            <Slider
+              onChange={(event, value) => this.changeBrightness(event, value)}
+              max={2}
+              min={0}
+              defaultValue={1}
+            />
 
-        <h4> Grayscale </h4>
-        <p> {gray *100}% </p>
-        <Slider
-          onChange={(event, value) => this.changeGray(event, value)}
-          max={1}
-          min={0}
-          defaultValue={0}
-        />
+            <h5> Grayscale </h5>
+            <p> {gray *100}% </p>
+            <Slider
+              onChange={(event, value) => this.changeGray(event, value)}
+              max={1}
+              min={0}
+              defaultValue={0}
+            />
 
-        <h4> Saturation </h4>
-        <p> {sat *100}% </p>
-        <Slider
-          onChange={(event, value) => this.changeSat(event, value)}
-          max={4}
-          min={0}
-          defaultValue={1}
-        />
-        <h4> Contrast </h4>
-        <p> {con *100}% </p>
-        <Slider
-          onChange={(event, value) => this.changeCon(event, value)}
-          max={4}
-          min={0}
-          defaultValue={1}
-        />
+            <h5> Saturation </h5>
+            <p> {sat *100}% </p>
+            <Slider
+              onChange={(event, value) => this.changeSat(event, value)}
+              max={4}
+              min={0}
+              defaultValue={1}
+            />
+            <h5> Contrast </h5>
+            <p> {con *100}% </p>
+            <Slider
+              onChange={(event, value) => this.changeCon(event, value)}
+              max={4}
+              min={0}
+              defaultValue={1}
+            />
+          </Col>
+          <Col xs>
+            <h5> Inversion </h5>
+            <p> {inv *100}% </p>
+            <Slider
+              onChange={(event, value) => this.changeInv(event, value)}
+              max={1}
+              min={0}
+              defaultValue={0}
+            />
 
-        <h4> Inversion </h4>
-        <p> {inv *100}% </p>
-        <Slider
-          onChange={(event, value) => this.changeInv(event, value)}
-          max={1}
-          min={0}
-          defaultValue={0}
-        />
+            <h5> Sepia </h5>
+            <p> {sepia *100}% </p>
+            <Slider
+              onChange={(event, value) => this.changeSepia(event, value)}
+              max={1}
+              min={0}
+              defaultValue={0}
+            />
 
-        <h4> Sepia </h4>
-        <p> {sepia *100}% </p>
-        <Slider
-          onChange={(event, value) => this.changeSepia(event, value)}
-          max={1}
-          min={0}
-          defaultValue={0}
-        />
-
-        <h4> Blur </h4>
-        <p> {blur}px </p>
-        <Slider
-          onChange={(event, value) => this.changeBlur(event, value)}
-          max={100}
-          min={0}
-          defaultValue={0}
-        />
-      </Paper>
-    </div>
+            <h5> Blur </h5>
+            <p> {blur}px </p>
+            <Slider
+              onChange={(event, value) => this.changeBlur(event, value)}
+              max={100}
+              min={0}
+              defaultValue={0}
+            />
+          </Col>
+          </Row>
+        </Paper>
+      </Col>
+    </Row>
+    </Grid>
   )
 }
 }
