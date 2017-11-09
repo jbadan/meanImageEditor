@@ -20,8 +20,7 @@ class App extends Component {
     super(props)
     this.state = {
       token: '',
-      user: {},
-      src: ''
+      user: {}
     }
   }
 
@@ -33,13 +32,7 @@ class App extends Component {
     localStorage.removeItem('mernToken')
     this.setState({token: '', user: {}})
   }
-  liftUrl = (data) => {
-    console.log("this is the lifturl data")
-    console.log(data)
-    this.setState({
-      src: data
-    })
-  }
+
 
   componentDidMount = () => {
     // If there is a token in localStorage
@@ -82,8 +75,6 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user}
                                                     lift={this.liftTokenToState}
-                                                    src={this.state.src}
-                                                    liftUrl={this.liftUrl}
                                               />} />
           <Route path="*" render={NotFound} status={404} />
         </Switch>

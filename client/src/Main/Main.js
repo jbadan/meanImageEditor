@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import ImageUpload from './ImageUpload';
-import { Flex, Box } from 'reflexbox';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import SwipeableViews from 'react-swipeable-views';
-import FontIcon from 'material-ui/FontIcon';
 import Edit from './Edit.js';
 import Profile from '../Profile/Profile.js';
 import axios from 'axios';
-import {GridList, GridTile} from 'material-ui/GridList';
+
+import { Grid, Row, Col } from 'react-flexbox-grid';
+
 import IconButton from 'material-ui/IconButton';
+import TextField from 'material-ui/TextField';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import SwipeableViews from 'react-swipeable-views';
+import FontIcon from 'material-ui/FontIcon';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   headline: {
@@ -20,16 +23,20 @@ const styles = {
   slide: {
     padding: 10,
   },
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
   gridList: {
     width: '80vw',
     height: '80vh',
     overflowY: 'auto',
   },
+  button:{
+    margin: "12px"
+  },
+  imageDisplays:{
+    maxHeight: '20vh'
+  },
+  addMargin:{
+    marginTop: '5vh'
+  }
 };
 
 
@@ -39,8 +46,14 @@ class Main extends Component {
       this.state = {
         slideIndex: 0,
         value: '',
-        unsplash: []
+        unsplash: [],
+        src: ''
       };
+    }
+    liftUrl = (data) => {
+      this.setState({
+        src: data
+      })
     }
 
     handleChange = (value) => {
@@ -54,8 +67,22 @@ class Main extends Component {
         slideIndex: data
       });
     };
-    handleChange = (event) => {
-      this.setState({value: event.target.value});
+    tileClick = (index) =>{
+      let newSrc = this.state.unsplash[index]
+      axios.post('/image/new', {
+        user: this.props.user,
+        src: newSrc
+      }).then(result => {
+      this.setState({
+        src: newSrc,
+        slideIndex: 1
+      })
+    })
+  }
+    handleChangeText = (event) => {
+      this.setState({
+        value: event.target.value
+      });
     }
     handleSubmit = (event) => {
       let unsplashResults = [];
@@ -88,57 +115,47 @@ render() {
           onChangeIndex={this.handleChange}
           >
           <div>
-          <Flex align='center' wrap w={1}>
-              <Box m='auto' align='center'>
-                <h1> </h1>
-              </Box>
-          </Flex>
-            <Flex align='center' wrap w={1}>
-                <Box m='auto' w={205} align='center'>
-                  <ImageUpload user={this.props.user} liftUrl={this.props.liftUrl} changeIndex={this.changeIndex}/>
-                </Box>
-            </Flex>
-            <Flex align='center' wrap w={1}>
-              <Box m='auto' auto align='center'>
-                <form onSubmit={this.handleSubmit}>
-                  <label>
-                    <input type="text" value={this.state.value} onChange={this.handleChange} placeholder="search Unsplash for images" />
-                  </label>
-                  <input type="submit" value="Submit" />
+            <Row center="xs">
+                <Col xs={6}>
+                  <ImageUpload user={this.props.user} liftUrl={this.liftUrl} changeIndex={this.changeIndex}/>
+                </Col>
+            </Row>
+            <Row center="xs">
+              <Col xs={6}>
+                <form style={styles.addMargin}>
+                  <TextField
+                      hintText="or search Unsplash for images"
+                      value={this.state.value}
+                      onChange={this.handleChangeText}
+                    />
+                  <RaisedButton
+                    label="Search"
+                    secondary={true}
+                    style={styles.button}
+                    onClick={this.handleSubmit}
+                    />
                 </form>
-              </Box>
-            </Flex>
-            <Flex align='center' wrap w={1}>
-              <Box m='auto' auto align='center'>
-                    <div style={styles.root}>
-                      <GridList
-                        cellHeight={200}
-                        style={styles.gridList}
-                        >
+              </Col>
+            </Row>
+            <Row center="xs">
+              <Col xs>
                       {this.state.unsplash.map((tile, index) => (
-                        <GridTile
-                          key={index}
-                          actionIcon={<IconButton><i class="fa fa-heart-o" aria-hidden="true"></i></IconButton>}
-                        >
-                          <img src={tile} />
-                        </GridTile>
+                          <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
                       ))}
-                    </GridList>
-                  </div>
 
-              </Box>
-            </Flex>
+              </Col>
+            </Row>
 
           </div>
           <div style={styles.slide}>
-            <Edit user={this.state.user} src={this.props.src}/>
+            <Edit user={this.state.user} src={this.state.src}/>
           </div>
           <div style={styles.slide}>
-          <Flex align='center' wrap w={1}>
-              <Box auto>
+          <Row>
+              <Col>
                 <Profile user={this.props.user}/>
-              </Box>
-          </Flex>
+              </Col>
+          </Row>
           </div>
         </SwipeableViews>
 

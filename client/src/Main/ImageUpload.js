@@ -20,6 +20,9 @@ const style = {
   },
   textStyle:{
     marginTop: '40%'
+  },
+  addMargin:{
+    marginTop: '10vh'
   }
 };
 
@@ -76,7 +79,7 @@ postUrl(){
 
 render() {
   return (
-      <form>
+      <form style={style.addMargin}>
         <Paper style={style.paperStyle} zDepth={4}>
           <Dropzone
             onDrop={this.onImageDrop.bind(this)}

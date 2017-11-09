@@ -4,9 +4,11 @@ import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
 import Style from 'style-it';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 const paper = {
-    height: '80vh',
+    minHeight: 750,
     width: 500,
     margin: 20,
     textAlign: 'center',
@@ -24,7 +26,6 @@ class Edit extends Component {
   constructor(props){
     super(props);
     this.state = {
-      src: this.props.src,
       brightnessValue: 1,
       grayValue: 0,
       satValue: 1,
@@ -35,7 +36,19 @@ class Edit extends Component {
       hueValue: 0
     }
   }
-
+  triggerDefault(event){
+    event.preventDefault()
+    this.setState({
+      brightnessValue: 1,
+      grayValue: 0,
+      satValue: 1,
+      invValue: 0,
+      sepiaValue: 0,
+      conValue: 1,
+      blurValue: 0,
+      hueValue: 0
+    })
+  }
   changeBrightness(event, value) {
    this.setState({
      brightnessValue:value
@@ -91,24 +104,41 @@ render() {
       width: 500,
       WebKitFilter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`,
       filter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`
+    },
+    button:{
+      margin: 12
     }
   };
   let imageLink;
-  if(this.state.src === ''){
+  let placeHolderDiv;
+  if(this.props.src === ''){
     imageLink = <img style={style.image} src={placeholder} />
+    placeHolderDiv = <div><h4>Experiment with the example image or return to the homescreen to upload your own.</h4></div>
   }else{
     imageLink = <img style={style.image} src={this.props.src} />
+    placeHolderDiv= <div/>
   }
   return (
     <Grid fluid>
-    <Row>
+    <Row middle="xs">
       <Col xs>
       <div style={imgStyle}>
+        {placeHolderDiv}
         {imageLink}
       </div>
       </Col>
       <Col xs>
         <Paper style={paper} zDepth={3}>
+        <Row>
+          <Col xsOffset={9} xs={3}>
+             <RaisedButton
+                label="Reset"
+                primary={true}
+                style={style.button}
+                onClick={(e) => this.triggerDefault(e)}
+            />
+          </Col>
+        </Row>
         <Row>
           <Col xs>
             <h5> Brightness </h5>
@@ -117,7 +147,7 @@ render() {
               onChange={(event, value) => this.changeBrightness(event, value)}
               max={2}
               min={0}
-              defaultValue={1}
+              value={this.state.brightnessValue}
             />
 
             <h5> Grayscale </h5>
@@ -126,7 +156,7 @@ render() {
               onChange={(event, value) => this.changeGray(event, value)}
               max={1}
               min={0}
-              defaultValue={0}
+              value={this.state.grayValue}
             />
 
             <h5> Saturation </h5>
@@ -135,15 +165,17 @@ render() {
               onChange={(event, value) => this.changeSat(event, value)}
               max={4}
               min={0}
-              defaultValue={1}
+              value={this.state.satValue}
             />
+
+
             <h5> Contrast </h5>
             <p> {con *100}% </p>
             <Slider
               onChange={(event, value) => this.changeCon(event, value)}
               max={4}
               min={0}
-              defaultValue={1}
+              value={this.state.conValue}
             />
           </Col>
           <Col xs>
@@ -153,7 +185,7 @@ render() {
               onChange={(event, value) => this.changeInv(event, value)}
               max={1}
               min={0}
-              defaultValue={0}
+              value={this.state.invValue}
             />
 
             <h5> Sepia </h5>
@@ -162,7 +194,7 @@ render() {
               onChange={(event, value) => this.changeSepia(event, value)}
               max={1}
               min={0}
-              defaultValue={0}
+              value={this.state.sepiaValue}
             />
 
             <h5> Blur </h5>
@@ -171,7 +203,7 @@ render() {
               onChange={(event, value) => this.changeBlur(event, value)}
               max={100}
               min={0}
-              defaultValue={0}
+              value={this.state.blurValue}
             />
             <h5> Hue Rotate</h5>
             <p> {hue}&#176; </p>
@@ -179,7 +211,7 @@ render() {
               onChange={(event, value) => this.changeHue(event, value)}
               max={360}
               min={0}
-              defaultValue={0}
+              value={this.state.hueValue}
             />
           </Col>
           </Row>
