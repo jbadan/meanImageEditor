@@ -148,11 +148,15 @@ render() {
 
           </div>
           <div style={styles.slide}>
-            <Edit user={this.props.user} src={this.state.src}/>
+            <Row center="xs">
+              <Col xs>
+                <Edit user={this.props.user} src={this.state.src}/>
+              </Col>
+            </Row>
           </div>
           <div style={styles.slide}>
-          <Row>
-              <Col>
+          <Row center="xs">
+              <Col xs>
                 <Profile user={this.props.user}/>
               </Col>
           </Row>

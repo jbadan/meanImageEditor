@@ -43,27 +43,45 @@ class GridImages extends Component {
 }
 
   render() {
+    let noUploads = <h3/>;
+    let saved = <h3> Your Saved Edits </h3>
+    let original = <h3> Original Uploads </h3>
+    if(this.state.tilesData.length === 0 && this.state.editedData.length === 0){
+      noUploads =  <h3> You have not uploaded or saved any images. Visit the Home tab to get started! </h3>
+      saved = <h3/>
+      original = <h3/>
+    }else if(this.state.tilesData.length === 0){
+      original = <h3/>
+    }else if(this.state.editedData.length === 0){
+      saved = <h3/>
+    }
     return (
-      <div>
+      <Row>
+      <Col xs={12}>
         <Row center="xs">
           <Col xs>
-            <h3> Original Uploads </h3>
-                  {this.state.tilesData.map((tile, index) => (
-                      <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
-                  ))}
-
+            {noUploads}
           </Col>
         </Row>
         <Row center="xs">
           <Col xs>
-            <h3> Edited Uploads </h3>
+            {saved}
                   {this.state.editedData.map((tile, index) => (
                       <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
                   ))}
-
           </Col>
         </Row>
-      </div>
+          <Row center="xs">
+            <Col xs>
+              {original}
+                    {this.state.tilesData.map((tile, index) => (
+                        <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
+                    ))}
+
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     );
   }
 }

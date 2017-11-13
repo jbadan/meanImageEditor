@@ -167,7 +167,7 @@ render() {
   let placeHolderDiv;
   if(this.props.src === ''){
     imageLink = placeholder
-    placeHolderDiv = <div><h4>Experiment with the example image or return to the homescreen to upload your own.</h4></div>
+    placeHolderDiv = <div><h4>Experiment with the example image or return to the home tab to upload your own.</h4></div>
   }else{
     imageLink =this.props.src
     placeHolderDiv= <div/>
