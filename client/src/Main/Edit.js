@@ -71,7 +71,12 @@ class Edit extends Component {
   triggerSave(e){
     e.preventDefault()
     const canvas = this.refs.canvas
-    const dataURL = canvas.toDataURL()
+    var canvas2 = this.refs.canvas2
+    var ctx2 = canvas2.getContext("2d");
+    var cssFilter = getComputedStyle(canvas).filter;
+    ctx2.filter = cssFilter;
+    ctx2.drawImage(canvas, 0, 0);
+    const dataURL = canvas2.toDataURL()
     axios.post('/image/save', {
       user: this.props.user,
       src: dataURL
@@ -146,6 +151,7 @@ render() {
   let con = this.state.conValue;
   let blur = this.state.blurValue;
   let hue = this.state.hueValue;
+
   const style = {
     image:{
       height: '50vh',
@@ -179,6 +185,7 @@ render() {
       <div style={imgStyle}>
         {placeHolderDiv}
         <canvas ref="canvas" style={style.image}> </canvas>
+        <canvas ref="canvas2" className="hidden" style={style.image}> </canvas>
         <img ref="image" src={imageLink} className="hidden" />
       </div>
       </Col>
