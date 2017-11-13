@@ -50,8 +50,9 @@ class Edit extends Component {
     const canvas = this.refs.canvas
     const ctx = canvas.getContext("2d")
     const img = this.refs.image
+    img.setAttribute('crossOrigin', 'anonymous');
     img.onload = () => {
-      ctx.drawImage(img, 0, 0)
+      ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
     }
   }
   triggerDefault(event){
@@ -147,8 +148,8 @@ render() {
   let hue = this.state.hueValue;
   const style = {
     image:{
-      height: 400,
-      width: 500,
+      height: '50vh',
+      width: '50vw',
       WebKitFilter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`,
       filter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`
     },

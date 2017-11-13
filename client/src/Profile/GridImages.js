@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {GridList, GridTile} from 'material-ui/GridList';
+
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import IconButton from 'material-ui/IconButton';
 
 const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: '80vw',
-    height: '80vh',
-    overflowY: 'auto',
+  imageDisplays:{
+    maxHeight: '20vh',
+    padding: '10px'
   },
 };
+
 
 class GridImages extends Component {
   constructor(props){
     super(props)
     this.state = {
-      tilesData: []
+      tilesData: [],
+      editedData: []
     }
   }
   componentDidMount(){
@@ -28,29 +25,45 @@ class GridImages extends Component {
       user: this.props.user
     }).then(result =>{
       this.setState({
-        tilesData:result.data.images
+        tilesData:result.data.images,
+        editedData: result.data.edited
       })
     })
   }
-
+  tileClick = (index) =>{
+    let newSrc = this.state.tilesData[index]
+    axios.post('/image/redo', {
+      user: this.props.user,
+      src: newSrc
+    }).then(result => {
+    this.setState({
+      src: newSrc
+    })
+  })
+}
 
   render() {
     return (
-      <div style={styles.root}>
-        <GridList
-          cellHeight={200}
-          style={styles.gridList}
-          >
-        {this.state.tilesData.map((tile, index) => (
-          <GridTile
-            key={index}
-            actionIcon={<IconButton><i class="fa fa-heart-o" aria-hidden="true"></i></IconButton>}
-          >
-            <img src={tile} />
-          </GridTile>
-        ))}
-      </GridList>
-    </div>
+      <div>
+        <Row center="xs">
+          <Col xs>
+            <h3> Original Uploads </h3>
+                  {this.state.tilesData.map((tile, index) => (
+                      <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
+                  ))}
+
+          </Col>
+        </Row>
+        <Row center="xs">
+          <Col xs>
+            <h3> Edited Uploads </h3>
+                  {this.state.editedData.map((tile, index) => (
+                      <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
+                  ))}
+
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

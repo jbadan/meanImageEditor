@@ -24,7 +24,7 @@ router.post('/grid', function(req,res,next){
   User.findOne({ "_id": req.body.user.id}).
   exec(function (err, user) {
     if (err) console.log(err);
-    res.send({images: user.images});
+    res.send({images: user.images, edited: user.editedImages});
   });
 })
 
