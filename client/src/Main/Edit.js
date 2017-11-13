@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import placeholder from './placeholder.jpg';
+import axios from 'axios';
+
+
+
+import placeholder from '../placeholder.jpg';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
 import Style from 'style-it';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
+
+
 
 
 const paper = {
@@ -33,7 +40,18 @@ class Edit extends Component {
       sepiaValue: 0,
       conValue: 1,
       blurValue: 0,
-      hueValue: 0
+      hueValue: 0,
+      autoHideDuration: 4000,
+      message: 'Image saved',
+      open: false
+    }
+  }
+  componentDidMount() {
+    const canvas = this.refs.canvas
+    const ctx = canvas.getContext("2d")
+    const img = this.refs.image
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0)
     }
   }
   triggerDefault(event){
@@ -46,9 +64,38 @@ class Edit extends Component {
       sepiaValue: 0,
       conValue: 1,
       blurValue: 0,
-      hueValue: 0
+      hueValue: 0,
     })
   }
+  triggerSave(e){
+    e.preventDefault()
+    const canvas = this.refs.canvas
+    const dataURL = canvas.toDataURL()
+    axios.post('/image/save', {
+      user: this.props.user,
+      src: dataURL
+    }).then(result => {
+      //opens snackbar
+        this.setState({
+          open: true,
+        });
+      })
+    }
+//Snackbar
+  handleChangeDuration = (event) => {
+      const value = event.target.value;
+      this.setState({
+        autoHideDuration: value.length > 0 ? parseInt(value) : 0,
+      });
+    };
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
+
+//image editing
   changeBrightness(event, value) {
    this.setState({
      brightnessValue:value
@@ -112,25 +159,40 @@ render() {
   let imageLink;
   let placeHolderDiv;
   if(this.props.src === ''){
-    imageLink = <img style={style.image} src={placeholder} />
+    imageLink = placeholder
     placeHolderDiv = <div><h4>Experiment with the example image or return to the homescreen to upload your own.</h4></div>
   }else{
-    imageLink = <img style={style.image} src={this.props.src} />
+    imageLink =this.props.src
     placeHolderDiv= <div/>
   }
   return (
     <Grid fluid>
+    <Snackbar
+       open={this.state.open}
+       message={this.state.message}
+       autoHideDuration={this.state.autoHideDuration}
+       onRequestClose={this.handleRequestClose}
+     />
     <Row middle="xs">
       <Col xs>
       <div style={imgStyle}>
         {placeHolderDiv}
-        {imageLink}
+        <canvas ref="canvas" style={style.image}> </canvas>
+        <img ref="image" src={imageLink} className="hidden" />
       </div>
       </Col>
       <Col xs>
         <Paper style={paper} zDepth={3}>
         <Row>
-          <Col xsOffset={9} xs={3}>
+        <Col xs={3}>
+           <RaisedButton
+              label="Save"
+              secondary={true}
+              style={style.button}
+              onClick={(e) => this.triggerSave(e)}
+          />
+        </Col>
+          <Col xsOffset={6} xs={3}>
              <RaisedButton
                 label="Reset"
                 primary={true}

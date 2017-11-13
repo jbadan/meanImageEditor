@@ -148,7 +148,7 @@ render() {
 
           </div>
           <div style={styles.slide}>
-            <Edit user={this.state.user} src={this.state.src}/>
+            <Edit user={this.props.user} src={this.state.src}/>
           </div>
           <div style={styles.slide}>
           <Row>

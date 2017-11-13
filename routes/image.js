@@ -36,5 +36,17 @@ router.post('/unsplash', function(req,res,next){
 });
 })
 
+router.post('/save', function(req,res,next){
+  User.findOneAndUpdate(
+    { "_id": req.body.user.id},{$push:{editedImages:req.body.src}},{new:true},
+    function(err,user) {
+        if(err){
+          console.log(err)
+        }
+        user.save();
+        res.send(user);
+    });
+});
+
 
 module.exports = router;

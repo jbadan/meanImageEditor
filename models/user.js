@@ -22,7 +22,8 @@ var userSchema = new mongoose.Schema({
     minlength: 8,
     maxlength: 99
   },
-  images: [String]
+  images: [String],
+  editedImages: [String]
 });
 
 // Override 'toJSON' to prevent the password from being returned with the user
