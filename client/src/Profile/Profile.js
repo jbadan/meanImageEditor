@@ -6,7 +6,7 @@ class Profile extends Component {
     return (
       <div>
         <h1>  </h1>
-        <GridImages user={this.props.user} />
+        <GridImages user={this.props.user} liftSrcToEdit={this.props.liftSrcToEdit}/>
       </div>
     );
   }

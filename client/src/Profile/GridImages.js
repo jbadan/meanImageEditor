@@ -32,15 +32,12 @@ class GridImages extends Component {
   }
   tileClick = (index) =>{
     let newSrc = this.state.tilesData[index]
-    axios.post('/image/redo', {
-      user: this.props.user,
-      src: newSrc
-    }).then(result => {
-    this.setState({
-      src: newSrc
-    })
-  })
-}
+      this.props.liftSrcToEdit(newSrc)
+  }
+  editedTileClick = (index) =>{
+    let newSrc = this.state.editedData[index]
+      this.props.liftSrcToEdit(newSrc)
+    }
 
   render() {
     let noUploads = <h3/>;
@@ -67,7 +64,7 @@ class GridImages extends Component {
           <Col xs>
             {saved}
                   {this.state.editedData.map((tile, index) => (
-                      <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
+                      <img style={styles.imageDisplays} key={index} src={tile} onClick={this.editedTileClick.bind(this, index)} />
                   ))}
           </Col>
         </Row>

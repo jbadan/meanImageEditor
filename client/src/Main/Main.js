@@ -79,6 +79,12 @@ class Main extends Component {
       })
     })
   }
+  liftSrcToEdit = (newSrc) => {
+    this.setState({
+      src: newSrc,
+      slideIndex: 1
+    })
+  }
     handleChangeText = (event) => {
       this.setState({
         value: event.target.value
@@ -157,7 +163,7 @@ render() {
           <div style={styles.slide}>
           <Row center="xs">
               <Col xs>
-                <Profile user={this.props.user}/>
+                <Profile user={this.props.user} liftSrcToEdit={this.liftSrcToEdit}/>
               </Col>
           </Row>
           </div>
