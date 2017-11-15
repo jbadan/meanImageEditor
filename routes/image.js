@@ -48,5 +48,27 @@ router.post('/save', function(req,res,next){
     });
 });
 
+router.post('/delete', function(req,res,next){
+  let src = req.body.src;
+  let subDoc = '';
+  if(req.body.editOrOriginal === 'editedData'){
+    subDoc = 'editedImages'
+  }else{
+    subDoc = 'images'
+  }
+    User.findOne({'_id': req.body.user.id},function(err, user){
+          user[subDoc].splice(req.body.index, 1);
+          user.save()
+          if(err){
+            console.log(err);
+          }
+        res.send({images: user.images, edited:user.editedImages});
+      })
+});
+
+
+
+
+
 
 module.exports = router;

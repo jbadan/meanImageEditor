@@ -3,6 +3,9 @@ import axios from 'axios';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import IconButton from 'material-ui/IconButton';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 
 const styles = {
   imageDisplays:{
@@ -17,7 +20,10 @@ class GridImages extends Component {
     super(props)
     this.state = {
       tilesData: [],
-      editedData: []
+      editedData: [],
+      open: false,
+      selectedIndex: '',
+      selectedData: ''
     }
   }
   componentDidMount(){
@@ -30,14 +36,68 @@ class GridImages extends Component {
       })
     })
   }
-  tileClick = (index) =>{
-    let newSrc = this.state.tilesData[index]
-      this.props.liftSrcToEdit(newSrc)
+  handleTouchTap = (event, index, string) => {
+    event.preventDefault();
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+      selectedIndex: index,
+      selectedData: string
+    });
+  };
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
+  tileClick = () =>{
+    let index = this.state.selectedIndex
+    let newSrc =''
+    if(this.state.selectedData === 'editedData'){
+      newSrc = this.state.editedData[index]
+    }else{
+    newSrc = this.state.tilesData[index]
+    }
+    this.props.liftSrcToEdit(newSrc)
   }
+
   editedTileClick = (index) =>{
     let newSrc = this.state.editedData[index]
       this.props.liftSrcToEdit(newSrc)
     }
+
+  downloadImage = () => {
+    let index = this.state.selectedIndex
+    let newSrc =''
+    if(this.state.selectedData === 'editedData'){
+      newSrc = this.state.editedData[index]
+    }else{
+    newSrc = this.state.tilesData[index]
+    }
+    window.open(newSrc)
+  }
+
+  deleteImage = () => {
+    let index= this.state.selectedIndex
+    let newSrc = ''
+    if(this.state.selectedData === 'editedData'){
+      newSrc = this.state.editedData[index]
+    }else{
+    newSrc = this.state.tilesData[index]
+    }
+    axios.post('/image/delete', {
+      user: this.props.user,
+      src: newSrc,
+      editOrOriginal: this.state.selectedData,
+      index: this.state.selectedIndex
+    }).then(result => {
+      this.setState({
+        tilesData: result.data.images,
+        editedData: result.data.edited
+      })
+  })
+  }
 
   render() {
     let noUploads = <h3/>;
@@ -54,6 +114,25 @@ class GridImages extends Component {
     }
     return (
       <Row>
+      <Popover
+        open={this.state.open}
+        anchorEl={this.state.anchorEl}
+        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+        onRequestClose={this.handleRequestClose}
+      >
+        <Menu>
+          <MenuItem primaryText="Edit"
+                    onClick={this.tileClick.bind(this)}
+           />
+           <MenuItem primaryText="Download"
+                     onClick={this.downloadImage.bind(this)}
+           />
+          <MenuItem primaryText="Delete"
+                    onClick={this.deleteImage.bind(this)}
+          />
+        </Menu>
+      </Popover>
       <Col xs={12}>
         <Row center="xs">
           <Col xs>
@@ -64,7 +143,7 @@ class GridImages extends Component {
           <Col xs>
             {saved}
                   {this.state.editedData.map((tile, index) => (
-                      <img style={styles.imageDisplays} key={index} src={tile} onClick={this.editedTileClick.bind(this, index)} />
+                      <img style={styles.imageDisplays} key={index} src={tile} onClick={(event) => this.handleTouchTap(event, index, 'editedData')} />
                   ))}
           </Col>
         </Row>
@@ -72,7 +151,7 @@ class GridImages extends Component {
             <Col xs>
               {original}
                     {this.state.tilesData.map((tile, index) => (
-                        <img style={styles.imageDisplays} key={index} src={tile} onClick={this.tileClick.bind(this, index)} />
+                        <img style={styles.imageDisplays} key={index} src={tile} onClick={(event) => this.handleTouchTap(event, index, 'tilesData')} />
                     ))}
 
             </Col>
