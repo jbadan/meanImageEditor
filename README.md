@@ -1,7 +1,5 @@
-inspired by https://github.com/ghosh/cssFilters
-
 # Bokeh
- A full-stack MERN image editing app inspired by Instagram and ![cssFilters](https://www.cssfilters.co/).[View Site](#).
+ A full-stack MERN image editing app inspired by Instagram and ![cssFilters](https://www.cssfilters.co/). [View Site](#).
 
 # Demo
 
