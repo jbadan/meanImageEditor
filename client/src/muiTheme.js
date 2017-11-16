@@ -3,7 +3,7 @@ import {
   pinkA200,
   grey100, grey300, grey400, grey500,
   white, darkBlack, fullWhite,
-  amber300, amber50, grey600, deepOrange200, grey800
+  amber300, amber50, grey600, deepOrange200, grey800, amber500
 
 
 
@@ -18,7 +18,7 @@ export default {
     primary1Color: amber300,
     primary2Color: amber50,
     primary3Color: grey600,
-    accent1Color: deepOrange200,
+    accent1Color: amber500,
     accent2Color: grey100,
     accent3Color: grey500,
     textColor: fullWhite,

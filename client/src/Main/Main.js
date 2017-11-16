@@ -6,7 +6,7 @@ import axios from 'axios';
 import Footer from '../Footer';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
-
+import {grey500} from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -24,6 +24,12 @@ const styles = {
   slide: {
     padding: 10,
   },
+  errorStyle: {
+   color: grey500,
+ },
+ underlineStyle: {
+   borderColor: grey500,
+ },
   gridList: {
     width: '80vw',
     height: '80vh',
@@ -132,6 +138,8 @@ render() {
                 <form style={styles.addMargin}>
                   <TextField
                       hintText="or search Unsplash for images"
+                      underlineStyle={styles.underlineStyle}
+                       hintStyle={styles.errorStyle}
                       value={this.state.value}
                       onChange={this.handleChangeText}
                     />

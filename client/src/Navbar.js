@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { AppBar, IconMenu, MenuItem, IconButton } from 'material-ui';
 
 import {
+  amber300,
+  grey50,
+} from 'material-ui/styles/colors';
+import {
   BrowserRouter as Router,
   Redirect, Link
 } from 'react-router-dom';
@@ -25,7 +29,9 @@ const Logged = (props) => {
           <div>
           <IconButton>
           <Avatar
-            size={40}
+            size={35}
+            color={amber300}
+            backgroundColor={grey50}
           >
           {letter}
           </Avatar>
@@ -75,7 +81,7 @@ class Navbar extends Component {
           title="Bokeh"
           showMenuIconButton={false}
           iconElementRight={this.state.user.id ? <Logged user={this.state.user} logout={this.handleLogout}/> : (
-            <div style={styles.inline}>
+            <div>
                 <Signup lift={this.props.lift} primary={false}/>
                 <Login lift={this.props.lift}/>
             </div>
