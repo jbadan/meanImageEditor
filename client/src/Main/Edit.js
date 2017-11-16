@@ -43,7 +43,6 @@ class Edit extends Component {
       conValue: 1,
       blurValue: 0,
       hueValue: 0,
-      autoHideDuration: 4000,
       message: 'Image saved',
       open: false,
       value: 1
@@ -252,12 +251,6 @@ class Edit extends Component {
       })
     }
 //Snackbar
-  handleChangeDuration = (event) => {
-      let value = event.target.value;
-      this.setState({
-        autoHideDuration: value.length > 0 ? parseInt(value) : 0,
-      });
-    };
   handleRequestClose = () => {
     this.setState({
       open: false,
@@ -344,7 +337,7 @@ render() {
     <Snackbar
        open={this.state.open}
        message={this.state.message}
-       autoHideDuration={this.state.autoHideDuration}
+       autoHideDuration={4000}
        onRequestClose={this.handleRequestClose}
      />
     <Row middle="xs">

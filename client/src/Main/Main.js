@@ -61,7 +61,9 @@ class Main extends Component {
         value: '',
         unsplash: [],
         src: '',
-        open: false
+        open: false,
+        tilesData: [],
+        editedData: []
       };
     }
     liftUrl = (data) => {
@@ -71,10 +73,17 @@ class Main extends Component {
     }
 
     handleChange = (value) => {
-      this.setState({
-        slideIndex: value,
-      });
-    };
+      axios.post('/image/grid', {
+        user: this.props.user
+      }).then(result =>{
+        this.setState({
+          tilesData:result.data.images,
+          editedData: result.data.edited,
+          slideIndex: value
+        })
+      })
+    }
+
 
     changeIndex = (data) => {
       this.setState({
@@ -219,7 +228,7 @@ render() {
           <div style={styles.slide}>
           <Row center="xs">
               <Col xs>
-                <Profile user={this.props.user} liftSrcToEdit={this.liftSrcToEdit}/>
+                <Profile user={this.props.user} liftSrcToEdit={this.liftSrcToEdit} editedData={this.state.editedData} tilesData={this.state.tilesData}/>
               </Col>
           </Row>
           </div>

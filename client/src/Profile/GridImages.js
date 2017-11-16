@@ -19,23 +19,19 @@ class GridImages extends Component {
   constructor(props){
     super(props)
     this.state = {
-      tilesData: [],
-      editedData: [],
+      tilesData: this.props.tilesData,
+      editedData: this.props.editedData,
       open: false,
       selectedIndex: '',
       selectedData: ''
     }
   }
-  componentDidMount(){
-    axios.post('/image/grid', {
-      user: this.props.user
-    }).then(result =>{
+  componentWillMount(){
       this.setState({
-        tilesData:result.data.images,
-        editedData: result.data.edited
+        tilesData:this.props.tilesData,
+        editedData: this.props.editedData
       })
-    })
-  }
+    }
   handleTouchTap = (event, index, string) => {
     event.preventDefault();
     this.setState({
@@ -54,16 +50,16 @@ class GridImages extends Component {
   tileClick = () =>{
     let index = this.state.selectedIndex
     let newSrc =''
-    if(this.state.selectedData === 'editedData'){
-      newSrc = this.state.editedData[index]
+    if(this.props.selectedData === 'editedData'){
+      newSrc = this.props.editedData[index]
     }else{
-    newSrc = this.state.tilesData[index]
+    newSrc = this.props.tilesData[index]
     }
     this.props.liftSrcToEdit(newSrc)
   }
 
   editedTileClick = (index) =>{
-    let newSrc = this.state.editedData[index]
+    let newSrc = this.props.editedData[index]
       this.props.liftSrcToEdit(newSrc)
     }
 
@@ -71,9 +67,9 @@ class GridImages extends Component {
     let index = this.state.selectedIndex
     let newSrc =''
     if(this.state.selectedData === 'editedData'){
-      newSrc = this.state.editedData[index]
+      newSrc = this.props.editedData[index]
     }else{
-    newSrc = this.state.tilesData[index]
+    newSrc = this.props.tilesData[index]
     }
     window.open(newSrc)
   }
@@ -81,10 +77,10 @@ class GridImages extends Component {
   deleteImage = () => {
     let index= this.state.selectedIndex
     let newSrc = ''
-    if(this.state.selectedData === 'editedData'){
-      newSrc = this.state.editedData[index]
+    if(this.props.selectedData === 'editedData'){
+      newSrc = this.props.editedData[index]
     }else{
-    newSrc = this.state.tilesData[index]
+    newSrc = this.props.tilesData[index]
     }
     axios.post('/image/delete', {
       user: this.props.user,
@@ -103,13 +99,13 @@ class GridImages extends Component {
     let noUploads = <h3/>;
     let saved = <h3> Your Saved Edits </h3>
     let original = <h3> Original Uploads </h3>
-    if(this.state.tilesData.length === 0 && this.state.editedData.length === 0){
+    if(this.props.tilesData.length === 0 && this.props.editedData.length === 0){
       noUploads =  <h3> You have not uploaded or saved any images. Visit the Home tab to get started! </h3>
       saved = <h3/>
       original = <h3/>
-    }else if(this.state.tilesData.length === 0){
+    }else if(this.props.tilesData.length === 0){
       original = <h3/>
-    }else if(this.state.editedData.length === 0){
+    }else if(this.props.editedData.length === 0){
       saved = <h3/>
     }
     return (
@@ -142,7 +138,7 @@ class GridImages extends Component {
         <Row center="xs">
           <Col xs>
             {saved}
-                  {this.state.editedData.map((tile, index) => (
+                  {this.props.editedData.map((tile, index) => (
                       <img style={styles.imageDisplays} key={index} src={tile} onClick={(event) => this.handleTouchTap(event, index, 'editedData')} />
                   ))}
           </Col>
@@ -150,7 +146,7 @@ class GridImages extends Component {
           <Row center="xs">
             <Col xs>
               {original}
-                    {this.state.tilesData.map((tile, index) => (
+                    {this.props.tilesData.map((tile, index) => (
                         <img style={styles.imageDisplays} key={index} src={tile} onClick={(event) => this.handleTouchTap(event, index, 'tilesData')} />
                     ))}
 
