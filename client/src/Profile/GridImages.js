@@ -88,11 +88,8 @@ class GridImages extends Component {
       editOrOriginal: this.state.selectedData,
       index: this.state.selectedIndex
     }).then(result => {
-      this.setState({
-        tilesData: result.data.images,
-        editedData: result.data.edited
+        this.props.liftDelete(result.data.images, result.data.edited)
       })
-  })
   }
 
   render() {

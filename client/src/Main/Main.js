@@ -108,6 +108,12 @@ class Main extends Component {
       slideIndex: 1
     })
   }
+  liftDelete = (newTilesArray, newEditedArray) => {
+    this.setState({
+      tilesData: newTilesArray,
+      editedData: newEditedArray
+    })
+  }
     handleChangeText = (event) => {
       this.setState({
         value: event.target.value
@@ -228,7 +234,7 @@ render() {
           <div style={styles.slide}>
           <Row center="xs">
               <Col xs>
-                <Profile user={this.props.user} liftSrcToEdit={this.liftSrcToEdit} editedData={this.state.editedData} tilesData={this.state.tilesData}/>
+                <Profile user={this.props.user} liftSrcToEdit={this.liftSrcToEdit} editedData={this.state.editedData} tilesData={this.state.tilesData} liftDelete={this.liftDelete}/>
               </Col>
           </Row>
           </div>
