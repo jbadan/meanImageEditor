@@ -318,8 +318,8 @@ render() {
 
   const style = {
     image:{
-      height: '50vh',
-      width: '50vw',
+      height: '450px',
+      width: '600px',
       WebKitFilter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`,
       filter: `brightness(${bright}) grayscale(${gray}) saturate(${sat}) invert(${inv}) sepia(${sepia}) contrast(${con}) blur(${blur}px) hue-rotate(${hue}deg)`
     },
@@ -379,7 +379,7 @@ render() {
         <Row>
           <Col xs>
             <h5> Brightness </h5>
-            <p> {bright *100}% </p>
+            <p> {Math.round(bright*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeBrightness(event, value)}
               max={2}
@@ -388,7 +388,7 @@ render() {
             />
 
             <h5> Grayscale </h5>
-            <p> {gray *100}% </p>
+            <p> {Math.round(gray*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeGray(event, value)}
               max={1}
@@ -397,7 +397,7 @@ render() {
             />
 
             <h5> Saturation </h5>
-            <p> {sat *100}% </p>
+            <p> {Math.round(sat*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeSat(event, value)}
               max={4}
@@ -407,7 +407,7 @@ render() {
 
 
             <h5> Contrast </h5>
-            <p> {con *100}% </p>
+            <p> {Math.round(con*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeCon(event, value)}
               max={4}
@@ -417,7 +417,7 @@ render() {
           </Col>
           <Col xs>
             <h5> Inversion </h5>
-            <p> {inv *100}% </p>
+            <p> {Math.round(inv*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeInv(event, value)}
               max={1}
@@ -426,7 +426,7 @@ render() {
             />
 
             <h5> Sepia </h5>
-            <p> {sepia *100}% </p>
+            <p> {Math.round(sepia*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeSepia(event, value)}
               max={1}
@@ -435,7 +435,7 @@ render() {
             />
 
             <h5> Blur </h5>
-            <p> {blur}px </p>
+            <p> {Math.round(blur)}px </p>
             <Slider
               onChange={(event, value) => this.changeBlur(event, value)}
               max={100}
@@ -443,7 +443,7 @@ render() {
               value={this.state.blurValue}
             />
             <h5> Hue Rotate</h5>
-            <p> {hue}&#176; </p>
+            <p> {Math.round(hue)}&#176; </p>
             <Slider
               onChange={(event, value) => this.changeHue(event, value)}
               max={360}
