@@ -10,6 +10,8 @@ import Style from 'style-it';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 
 
@@ -43,7 +45,8 @@ class Edit extends Component {
       hueValue: 0,
       autoHideDuration: 4000,
       message: 'Image saved',
-      open: false
+      open: false,
+      value: 1
     }
   }
   componentDidMount() {
@@ -55,6 +58,166 @@ class Edit extends Component {
       ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
     }
   }
+  //presets dropdown controller
+  handleChangePreset = (event, index, value) => {
+    //1977
+    if(value === 2){
+      this.setState({
+        value: value,
+        conValue: 1.1,
+        brightnessValue: 1.1,
+        satValue: 1.3,
+        grayValue: 0,
+        invValue: 0,
+        sepiaValue: 0,
+        blurValue: 0,
+        hueValue: 0,
+      });
+      //Aden
+    }else if(value === 3){
+      this.setState({
+        value: value,
+        conValue: .9,
+        brightnessValue: 1.2,
+        satValue: .85,
+        hueValue: 20,
+        grayValue: 0,
+        invValue: 0,
+        sepiaValue: 0,
+        blurValue: 0,
+      })
+      //Amaro
+    }else if(value === 4){
+      this.setState({
+        value:value,
+        conValue: .9,
+        brightnessValue: 1.1,
+        satValue: 1.5,
+        hueValue: -10,
+        grayValue: 0,
+        invValue: 0,
+        sepiaValue: 0,
+        blurValue: 0,
+      })
+      //Brannan
+    }else if(value === 5){
+      this.setState({
+        sepiaValue: .5,
+        conValue: 1.4,
+        value:value,
+        brightnessValue: 1,
+        grayValue: 0,
+        satValue: 1,
+        invValue: 0,
+        blurValue: 0,
+        hueValue: 0,
+      })
+      //Brooklyn
+    }else if(value === 6){
+      this.setState({
+        brightnessValue: 1.1,
+        conValue: .9,
+        value:value,
+        grayValue: 0,
+        satValue: 1,
+        invValue: 0,
+        sepiaValue: 0,
+        blurValue: 0,
+        hueValue: 0,
+      })
+      //Claredon
+      }else if(value === 7){
+        this.setState({
+          satValue: 1.25,
+          conValue: 1.2,
+          value:value,
+          brightnessValue: 1,
+          grayValue: 0,
+          invValue: 0,
+          sepiaValue: 0,
+          blurValue: 0,
+          hueValue: 0,
+        })
+        //Earlybird
+    }else if(value === 8){
+      this.setState({
+        sepiaValue: .2,
+        conValue: .9,
+        value:value,
+        brightnessValue: 1,
+        grayValue: 0,
+        satValue: 1,
+        invValue: 0,
+        blurValue: 0,
+        hueValue: 0,
+      })
+      //Gingham
+    }else if(value === 9){
+      this.setState({
+        brightnessValue: 1.05,
+        hueValue: 350,
+        value:value,
+        grayValue: 0,
+        satValue: 1,
+        invValue: 0,
+        sepiaValue: 0,
+        conValue: 1,
+        blurValue: 0,
+      })
+      //Hudson
+    }else if(value === 10){
+      this.setState({
+        brightnessValue: 1.2,
+        satValue: 1.1,
+        conValue: .9,
+        value:value,
+        grayValue: 0,
+        invValue: 0,
+        sepiaValue: 0,
+        blurValue: 0,
+        hueValue: 0,
+      })
+      //Inkwell
+    }else if(value === 11){
+      this.setState({
+        grayValue: 1,
+        sepiaValue: .3,
+        brightnessValue: 1.1,
+        conValue: 1.1,
+        value:value,
+        satValue: 1,
+        invValue: 0,
+        blurValue: 0,
+        hueValue: 0,
+      })
+      //Lofi
+    }else if(value === 12){
+      this.setState({
+        brightnessValue: 1,
+        grayValue: 0,
+        invValue: 0,
+        sepiaValue: 0,
+        blurValue: 0,
+        hueValue: 0,
+        satValue: 1.1,
+        conValue: 1.5,
+        value:value
+      })
+    }else{
+      this.setState({
+        brightnessValue: 1,
+        grayValue: 0,
+        satValue: 1,
+        invValue: 0,
+        sepiaValue: 0,
+        conValue: 1,
+        blurValue: 0,
+        hueValue: 0,
+        value:value
+      })
+    }
+}
+  //reset button
   triggerDefault(event){
     event.preventDefault()
     this.setState({
@@ -68,6 +231,7 @@ class Edit extends Component {
       hueValue: 0,
     })
   }
+  //save button
   triggerSave(e){
     e.preventDefault()
     const canvas = this.refs.canvas
@@ -89,7 +253,7 @@ class Edit extends Component {
     }
 //Snackbar
   handleChangeDuration = (event) => {
-      const value = event.target.value;
+      let value = event.target.value;
       this.setState({
         autoHideDuration: value.length > 0 ? parseInt(value) : 0,
       });
@@ -161,7 +325,10 @@ render() {
     },
     button:{
       margin: 12
-    }
+    },
+    customWidth: {
+      width: 300,
+ },
   };
   let imageLink;
   let placeHolderDiv;
@@ -284,6 +451,29 @@ render() {
               value={this.state.hueValue}
             />
           </Col>
+          </Row>
+          <Row middle="xs">
+            <Col xs>
+            <DropDownMenu
+              value={this.state.value}
+              onChange={this.handleChangePreset}
+              style={style.customWidth}
+              autoWidth={false}
+              >
+                 <MenuItem value={1} primaryText="Choose a Preset" />
+                 <MenuItem value={2} primaryText="1977" />
+                 <MenuItem value={3} primaryText="Aden" />
+                 <MenuItem value={4} primaryText="Amaro" />
+                 <MenuItem value={5} primaryText="Brannan" />
+                 <MenuItem value={6} primaryText="Brooklyn" />
+                 <MenuItem value={7} primaryText="Clarendon" />
+                 <MenuItem value={8} primaryText="Earlybird" />
+                 <MenuItem value={9} primaryText="Gingham" />
+                 <MenuItem value={10} primaryText="Hudson" />
+                 <MenuItem value={11} primaryText="Inkwell" />
+                 <MenuItem value={12} primaryText="Lofi" />
+          </DropDownMenu>
+            </Col>
           </Row>
         </Paper>
       </Col>
