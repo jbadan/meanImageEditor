@@ -32,7 +32,7 @@ class Footer extends Component {
         <Divider />
         <Col xsOffset={9} xs={3}>
           <a style={styles.links} href="https://github.com/jbadan/meanImageEditor"><i className="fa fa-github" aria-hidden="true"></i></a>
-          <a style={styles.links} href="www.jennabadanowski.com">Jenna Badanowski <i class="fa fa-copyright" aria-hidden="true"> 2017</i></a>
+          <a style={styles.links} href="www.jennabadanowski.com">Jenna Badanowski <i className="fa fa-copyright" aria-hidden="true"> 2017</i></a>
         </Col>
       </Row>
     );

@@ -24,3 +24,8 @@
 body{
   background: #FFFFFE;
 }
+
+.fa-question-circle-o{
+  padding-top: 10px;
+  color: #757575;
+}
