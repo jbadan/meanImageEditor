@@ -13,6 +13,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
   headline: {
@@ -43,7 +45,11 @@ const styles = {
   },
   addMargin:{
     marginTop: '5vh'
+  },
+  color: {
+    color: '#FFFFFE'
   }
+
 };
 
 
@@ -54,7 +60,8 @@ class Main extends Component {
         slideIndex: 0,
         value: '',
         unsplash: [],
-        src: ''
+        src: '',
+        open: false
       };
     }
     liftUrl = (data) => {
@@ -111,8 +118,23 @@ class Main extends Component {
       })
      })
    }
+   //question dialog box open/close
+   handleQuestionOpen = () => {
+    this.setState({open: true});
+  };
+  handleQuestionClose = () => {
+    this.setState({open: false});
+  };
+
 
 render() {
+  const actions = [
+    <FlatButton
+      label="Close"
+      primary={true}
+      onClick={this.handleQuestionClose}
+    />,
+  ];
   return (
     <div>
         <Tabs
@@ -128,6 +150,31 @@ render() {
           onChangeIndex={this.handleChange}
           >
           <div>
+          <Row>
+            <Col xs>
+            <Row start="xs">
+              <Col xs={2} xsOffset={1}>
+                <i className="fa fa-question-circle-o fa-3x" aria-hidden="true" onClick={this.handleQuestionOpen}></i>
+                <Dialog
+                title="Need Help?"
+                actions={actions}
+                modal={false}
+                open={this.state.open}
+                onRequestClose={this.handleQuestionClose}
+              >
+                <h3 style={styles.color}> What is Bokeh? </h3>
+                <p>Bokeh is the aesthetic quality of the blur produced in the out-of-focus parts of an image produced by a lens.</p>
+                <h3 style={styles.color}> How do I upload an image? </h3>
+                <p> You have options! Upload your own image by dragging and dropping it into the grey square or click on the square to navigate to your files.
+                 You can also search Unsplash to find free stock images. </p>
+                 <h3 style={styles.color}> How do I view my saved images? </h3>
+                 <p> Navigate to "Your Uploads". Original uploads and saved edits are stored there. Simply click on an image to edit, download or delete. </p>
+              </Dialog>
+              </Col>
+
+            </Row>
+            </Col>
+          </Row>
             <Row center="xs">
                 <Col xs={6}>
                   <ImageUpload user={this.props.user} liftUrl={this.liftUrl} changeIndex={this.changeIndex}/>

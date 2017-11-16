@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AppBar, IconMenu, MenuItem, IconButton } from 'material-ui';
+import FontIcon from 'material-ui/FontIcon';
 
 import {
   amber300,
@@ -72,6 +73,9 @@ class Navbar extends Component {
     const styles = {
       inline:{
         display: "inline-block"
+      },
+      icon:{
+        marginTop: 10
       }
     };
 
@@ -79,7 +83,12 @@ class Navbar extends Component {
       <div>
         <AppBar
           title="Bokeh"
-          showMenuIconButton={false}
+          showMenuIconButton={true}
+          iconElementLeft={<FontIcon
+                              className="fa fa-cubes"
+                              style={styles.icon}
+
+                          />}
           iconElementRight={this.state.user.id ? <Logged user={this.state.user} logout={this.handleLogout}/> : (
             <div>
                 <Signup lift={this.props.lift} primary={false}/>
