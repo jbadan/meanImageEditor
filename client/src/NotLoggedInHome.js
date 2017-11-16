@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Footer from './Footer';
+import HelpDialog from './Helpdialog';
 
 import placeholder from './placeholder.jpg';
 import Paper from 'material-ui/Paper';
@@ -43,8 +44,7 @@ class NotLoggedInHome extends Component {
       conValue: 1,
       blurValue: 0,
       hueValue: 0,
-      value: 1,
-      open: false
+      value: 1
     }
   }
   componentDidMount() {
@@ -56,15 +56,6 @@ class NotLoggedInHome extends Component {
       ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
     }
   }
-
-  //question dialog box open/close
-  handleQuestionOpen = () => {
-   this.setState({open: true});
- };
- handleQuestionClose = () => {
-   this.setState({open: false});
- };
-
 
   //presets dropdown controller
   handleChangePreset = (event, index, value) => {
@@ -304,48 +295,15 @@ render() {
     customWidth: {
       width: 300,
       fontSize: '1em'
-    },
-    color: {
-      color: '#FFFFFE'
     }
 
   };
     let imageLink = placeholder
     let placeHolderDiv = <div><h3>Experiment with the example image or log in to upload your own.</h3></div>
-    const actions = [
-      <FlatButton
-        label="Close"
-        primary={true}
-        onClick={this.handleQuestionClose}
-      />,
-    ];
+  
   return (
     <Grid fluid>
-    <Row>
-      <Col xs>
-      <Row start="xs">
-        <Col xs>
-        <div className="animationContainer">
-        <div className="pulse"/>
-        <i className="fa fa-question-circle-o fa-3x" aria-hidden="true" onClick={this.handleQuestionOpen}></i>
-        </div>
-          <Dialog
-          title="Need Help?"
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleQuestionClose}
-        >
-          <p style={style.color}> What is Bokeh? </p>
-          <p>Bokeh is the aesthetic quality of the blur produced in the out-of-focus parts of an image produced by a lens.</p>
-          <p style={style.color}> How do I use Bokeh? </p>
-          <p> Get to know Bokeh by experimenting with the control panel next to the sample image. To upload your own image and for more options, log in or sign up. </p>
-        </Dialog>
-        </Col>
-
-      </Row>
-      </Col>
-    </Row>
+    <HelpDialog />
     <Row middle="xs">
       <Col xs/>
       <Col xs>
