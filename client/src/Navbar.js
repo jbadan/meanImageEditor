@@ -63,24 +63,21 @@ class Navbar extends Component {
   }
 
   render() {
+    const styles = {
+      inline:{
+        display: "inline-block"
+      }
+    };
 
     return (
       <div>
         <AppBar
-          title={<FlatButton
-                containerElement={<Link to="/" />}
-                label={"Image Editor"}
-                labelStyle={{ fontSize: '1em'}}
-                />}
+          title="Bokeh"
           showMenuIconButton={false}
           iconElementRight={this.state.user.id ? <Logged user={this.state.user} logout={this.handleLogout}/> : (
-            <div className='nav-buttons'>
-              <div className='nav-button'>
+            <div style={styles.inline}>
                 <Signup lift={this.props.lift} primary={false}/>
-              </div>
-              <div className='nav-button'>
                 <Login lift={this.props.lift}/>
-              </div>
             </div>
 
           )}

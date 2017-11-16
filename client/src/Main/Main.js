@@ -3,6 +3,7 @@ import ImageUpload from './ImageUpload';
 import Edit from './Edit.js';
 import Profile from '../Profile/Profile.js';
 import axios from 'axios';
+import Footer from '../Footer';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
@@ -168,7 +169,7 @@ render() {
           </Row>
           </div>
         </SwipeableViews>
-
+        <Footer />
     </div>
   )
 }

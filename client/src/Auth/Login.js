@@ -59,6 +59,12 @@ class Login extends Component {
   };
 
   render() {
+    const styles = {
+      buttonStyle:{
+        backgroundColor: 'transparent',
+        color: 'white'
+      },
+    };
     const actions = [
       <FlatButton
         label="Cancel"
@@ -76,7 +82,7 @@ class Login extends Component {
 
     return (
       <div>
-        <RaisedButton label="Login" onClick={this.handleOpen} />
+        <FlatButton style={styles.buttonStyle} label="Login" onClick={this.handleOpen} />
         <Dialog
           title="Login"
           actions={actions}

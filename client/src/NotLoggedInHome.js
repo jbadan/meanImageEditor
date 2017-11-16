@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Footer from './Footer';
 
 import placeholder from './placeholder.jpg';
 import Paper from 'material-ui/Paper';
@@ -297,6 +298,15 @@ render() {
 
   return (
     <Grid fluid>
+    <Row>
+      <Col xs>
+      <Row center="xs">
+        <Col xs={6}>
+          <h2> Bokeh is the aesthetic quality of the blur produced in the out-of-focus parts of an image produced by a lens. </h2>
+        </Col>
+      </Row>
+      </Col>
+    </Row>
     <Row middle="xs">
       <Col xs>
       <div style={imgStyle}>
@@ -419,6 +429,7 @@ render() {
         </Paper>
       </Col>
     </Row>
+    <Footer />
     </Grid>
   )
 }
