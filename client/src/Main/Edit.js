@@ -327,7 +327,7 @@ render() {
   let placeHolderDiv;
   if(this.props.src === ''){
     imageLink = placeholder
-    placeHolderDiv = <div><h4>Experiment with the example image or return to the home tab to upload your own.</h4></div>
+    placeHolderDiv = <div><h3>Experiment with the example image or return to the home tab to upload your own.</h3></div>
   }else{
     imageLink =this.props.src
     placeHolderDiv= <div/>
@@ -341,6 +341,7 @@ render() {
        onRequestClose={this.handleRequestClose}
      />
     <Row middle="xs">
+      <Col xs/>
       <Col xs>
       <div style={imgStyle}>
         {placeHolderDiv}
@@ -371,7 +372,7 @@ render() {
         </Row>
         <Row>
           <Col xs>
-            <h5> Brightness </h5>
+            <p> Brightness </p>
             <p> {Math.round(bright*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeBrightness(event, value)}
@@ -380,7 +381,7 @@ render() {
               value={this.state.brightnessValue}
             />
 
-            <h5> Grayscale </h5>
+            <p> Grayscale </p>
             <p> {Math.round(gray*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeGray(event, value)}
@@ -389,7 +390,7 @@ render() {
               value={this.state.grayValue}
             />
 
-            <h5> Saturation </h5>
+            <p> Saturation </p>
             <p> {Math.round(sat*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeSat(event, value)}
@@ -399,7 +400,7 @@ render() {
             />
 
 
-            <h5> Contrast </h5>
+            <p> Contrast </p>
             <p> {Math.round(con*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeCon(event, value)}
@@ -409,7 +410,7 @@ render() {
             />
           </Col>
           <Col xs>
-            <h5> Inversion </h5>
+            <p> Inversion </p>
             <p> {Math.round(inv*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeInv(event, value)}
@@ -418,7 +419,7 @@ render() {
               value={this.state.invValue}
             />
 
-            <h5> Sepia </h5>
+            <p> Sepia </p>
             <p> {Math.round(sepia*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeSepia(event, value)}
@@ -427,7 +428,7 @@ render() {
               value={this.state.sepiaValue}
             />
 
-            <h5> Blur </h5>
+            <p> Blur </p>
             <p> {Math.round(blur)}px </p>
             <Slider
               onChange={(event, value) => this.changeBlur(event, value)}
@@ -435,7 +436,7 @@ render() {
               min={0}
               value={this.state.blurValue}
             />
-            <h5> Hue Rotate</h5>
+            <p> Hue Rotate</p>
             <p> {Math.round(hue)}&#176; </p>
             <Slider
               onChange={(event, value) => this.changeHue(event, value)}
@@ -470,6 +471,7 @@ render() {
           </Row>
         </Paper>
       </Col>
+      <Col xs/>
     </Row>
     </Grid>
   )

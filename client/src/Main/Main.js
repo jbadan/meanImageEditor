@@ -167,9 +167,12 @@ render() {
           <div>
           <Row>
             <Col xs>
-            <Row start="xs">
-              <Col xs={2} xsOffset={1}>
+            <Row>
+              <Col xsOffset={11} xs={1}>
+                <div className="animationContainer">
+                <div className="pulse"/>
                 <i className="fa fa-question-circle-o fa-3x" aria-hidden="true" onClick={this.handleQuestionOpen}></i>
+                </div>
                 <Dialog
                 title="Need Help?"
                 actions={actions}
@@ -186,7 +189,6 @@ render() {
                  <p> Navigate to "Your Uploads". Original uploads and saved edits are stored there. Simply click on an image to edit, download or delete. </p>
               </Dialog>
               </Col>
-
             </Row>
             </Col>
           </Row>

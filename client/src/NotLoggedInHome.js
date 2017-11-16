@@ -325,7 +325,10 @@ render() {
       <Col xs>
       <Row start="xs">
         <Col xs>
-          <i className="fa fa-question-circle-o fa-3x" aria-hidden="true" onClick={this.handleQuestionOpen}></i>
+        <div className="animationContainer">
+        <div className="pulse"/>
+        <i className="fa fa-question-circle-o fa-3x" aria-hidden="true" onClick={this.handleQuestionOpen}></i>
+        </div>
           <Dialog
           title="Need Help?"
           actions={actions}
@@ -333,9 +336,9 @@ render() {
           open={this.state.open}
           onRequestClose={this.handleQuestionClose}
         >
-          <h3 style={style.color}> What is Bokeh? </h3>
+          <p style={style.color}> What is Bokeh? </p>
           <p>Bokeh is the aesthetic quality of the blur produced in the out-of-focus parts of an image produced by a lens.</p>
-          <h3 style={style.color}> How do I use Bokeh? </h3>
+          <p style={style.color}> How do I use Bokeh? </p>
           <p> Get to know Bokeh by experimenting with the control panel next to the sample image. To upload your own image and for more options, log in or sign up. </p>
         </Dialog>
         </Col>
@@ -366,7 +369,7 @@ render() {
         </Row>
         <Row>
           <Col xs>
-            <h3> Brightness </h3>
+            <p> Brightness </p>
             <p> {Math.round(bright*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeBrightness(event, value)}
@@ -375,7 +378,7 @@ render() {
               value={this.state.brightnessValue}
             />
 
-            <h3> Grayscale </h3>
+            <p> Grayscale </p>
             <p> {Math.round(gray*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeGray(event, value)}
@@ -384,7 +387,7 @@ render() {
               value={this.state.grayValue}
             />
 
-            <h3> Saturation </h3>
+            <p> Saturation </p>
             <p> {Math.round(sat*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeSat(event, value)}
@@ -394,7 +397,7 @@ render() {
             />
 
 
-            <h3> Contrast </h3>
+            <p> Contrast </p>
             <p> {Math.round(con*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeCon(event, value)}
@@ -404,7 +407,7 @@ render() {
             />
           </Col>
           <Col xs>
-            <h3> Inversion </h3>
+            <p> Inversion </p>
             <p> {Math.round(inv*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeInv(event, value)}
@@ -413,7 +416,7 @@ render() {
               value={this.state.invValue}
             />
 
-            <h3> Sepia </h3>
+            <p> Sepia </p>
             <p> {Math.round(sepia*100)}% </p>
             <Slider
               onChange={(event, value) => this.changeSepia(event, value)}
@@ -422,7 +425,7 @@ render() {
               value={this.state.sepiaValue}
             />
 
-            <h3> Blur </h3>
+            <p> Blur </p>
             <p> {Math.round(blur)}px </p>
             <Slider
               onChange={(event, value) => this.changeBlur(event, value)}
@@ -430,7 +433,7 @@ render() {
               min={0}
               value={this.state.blurValue}
             />
-            <h3> Hue Rotate</h3>
+            <p> Hue Rotate</p>
             <p> {Math.round(hue)}&#176; </p>
             <Slider
               onChange={(event, value) => this.changeHue(event, value)}
