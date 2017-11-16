@@ -18,8 +18,11 @@ inspired by https://github.com/ghosh/cssFilters
 * [Unsplash](https://unsplash.com/)
 * [FontAwesome](http://fontawesome.io/)
 
+# React Components
 
-# Routes
+![Components Map](/client/public/download.png)
+
+# Backend Routes
 METHOD | URL | Purpose
 --- | --- | ---
 GET | / | Renders homepage (‘index’)
