@@ -78,6 +78,7 @@ render() {
                   <TextField
                       hintText="or search Unsplash for images"
                       hintStyle={styles.errorStyle}
+                      inputStyle = {styles.errorStyle}
                       underlineStyle={styles.underlineStyle}
                        hintStyle={styles.errorStyle}
                       value={this.state.value}
